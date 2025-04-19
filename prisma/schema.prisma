@@ -13,12 +13,14 @@ datasource db {
 model Observation {
   id          String   @id @default(uuid())
   faunaId     String
+  fauna       Fauna    @relation(fields: [faunaId], references: [id])
   description String
   createdAt   DateTime @default(now())
 }
 
 model Fauna {
-  id    String @id @default(uuid())
-  name  String
-  icon  String
+  id           String        @id @default(uuid())
+  name         String
+  icon         String
+  observations Observation[]
 } 
