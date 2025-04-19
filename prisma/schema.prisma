@@ -1,0 +1,24 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Observation {
+  id          String   @id @default(uuid())
+  faunaId     String
+  description String
+  createdAt   DateTime @default(now())
+}
+
+model Fauna {
+  id    String @id @default(uuid())
+  name  String
+  icon  String
+} 
