@@ -24,12 +24,25 @@ export default function FaunaList({ fauna, observations }: FaunaListProps) {
             return (
               <div key={obs.id} className={styles.observationCard}>
                 <div className={styles.observationHeader}>
-                  <h3 className={styles.observationTitle}>{animal?.name}</h3>
-                  <time className={styles.observationDate}>
-                    {format(new Date(obs.createdAt), "d MMMM yyyy 'à' HH:mm", {
-                      locale: fr,
-                    })}
-                  </time>
+                  <div className={styles.observationHeaderLeft}>
+                    <div className={styles.observationAvatar}>
+                      {animal?.icon}
+                    </div>
+                    <div>
+                      <h3 className={styles.observationTitle}>
+                        {animal?.name}
+                      </h3>
+                      <time className={styles.observationDate}>
+                        {format(
+                          new Date(obs.createdAt),
+                          "d MMMM yyyy 'à' HH:mm",
+                          {
+                            locale: fr,
+                          }
+                        )}
+                      </time>
+                    </div>
+                  </div>
                 </div>
                 <p className={styles.observationDescription}>
                   {obs.description}
