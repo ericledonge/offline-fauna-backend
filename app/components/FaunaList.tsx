@@ -1,6 +1,7 @@
 import { Fauna, Observation } from "@prisma/client";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
+import { toZonedTime } from "date-fns-tz";
 
 import styles from "./FaunaList.module.css";
 import DeleteButton from "./DeleteButton";
@@ -34,7 +35,10 @@ export default function FaunaList({ fauna, observations }: FaunaListProps) {
                       </h3>
                       <time className={styles.observationDate}>
                         {format(
-                          new Date(obs.createdAt),
+                          toZonedTime(
+                            new Date(obs.createdAt),
+                            "America/Montreal"
+                          ),
                           "d MMMM yyyy 'à' HH:mm",
                           {
                             locale: fr,
