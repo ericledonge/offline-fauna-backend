@@ -15,27 +15,33 @@ const handler = startServerAndCreateNextHandler(server, {
 
 export async function GET(request: NextRequest) {
   const response = await handler(request);
-  response.headers.set("Access-Control-Allow-Origin", "*");
+  const origin = request.headers.get("origin") || "*";
+  response.headers.set("Access-Control-Allow-Origin", origin);
   response.headers.set("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   response.headers.set("Access-Control-Allow-Headers", "Content-Type");
+  response.headers.set("Access-Control-Allow-Credentials", "true");
   return response;
 }
 
 export async function POST(request: NextRequest) {
   const response = await handler(request);
-  response.headers.set("Access-Control-Allow-Origin", "*");
+  const origin = request.headers.get("origin") || "*";
+  response.headers.set("Access-Control-Allow-Origin", origin);
   response.headers.set("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   response.headers.set("Access-Control-Allow-Headers", "Content-Type");
+  response.headers.set("Access-Control-Allow-Credentials", "true");
   return response;
 }
 
-export async function OPTIONS() {
+export async function OPTIONS(request: NextRequest) {
+  const origin = request.headers.get("origin") || "*";
   return new Response(null, {
     status: 204,
     headers: {
-      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Origin": origin,
       "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
       "Access-Control-Allow-Headers": "Content-Type",
+      "Access-Control-Allow-Credentials": "true",
     },
   });
 }
